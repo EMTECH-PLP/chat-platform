@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: chat-platform
+  config:
+    import: classpath:database.yml
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+springdoc:
+  swagger-ui:
+    path: /docs
