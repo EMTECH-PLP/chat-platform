@@ -1,4 +1,4 @@
-package com.chat.auth.model;
+package chatapp.chat_platform.auth.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

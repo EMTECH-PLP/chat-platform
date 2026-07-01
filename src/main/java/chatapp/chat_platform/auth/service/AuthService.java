@@ -20,18 +20,17 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email already registered");
         }
-        User user = User.builder()
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .password(request.getPassword()) // TODO: encode password
-                .displayName(request.getDisplayName())
-                .build();
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPasswordHash(request.getPassword()); // TODO: encode password
+        user.setDisplayName(request.getDisplayName());
         return userRepository.save(user);
     }
 
     public User login(LoginRequest request) {
         return userRepository.findByUsername(request.getUsername())
-                .filter(u -> u.getPassword().equals(request.getPassword())) // TODO: password check
+                .filter(u -> u.getPasswordHash().equals(request.getPassword())) // TODO: password check
                 .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
     }
 }
