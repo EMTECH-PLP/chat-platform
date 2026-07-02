@@ -28,7 +28,11 @@ target/.env
 /.nb-gradle/
 build/
 !**/src/main/**/build/
+.env
 !**/src/test/**/build/
+
 
 ### VS Code ###
 .vscode/
+application-mariadb.yml
+*.local.yml
