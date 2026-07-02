@@ -1,8 +1,8 @@
-package chatapp.chat_platform.auth.search.service;
+package chatapp.chat_platform.search.service;
 
-import chatapp.chat_platform.auth.search.dto.SearchRequest;
-import chatapp.chat_platform.auth.search.model.MessageIndex;
-import chatapp.chat_platform.auth.search.repository.MessageIndexRepository;
+import chatapp.chat_platform.search.dto.SearchRequest;
+import chatapp.chat_platform.search.model.MessageIndex;
+import chatapp.chat_platform.search.repository.MessageIndexRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
