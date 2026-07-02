@@ -4,11 +4,35 @@ spring:
   config:
     import: classpath:application-postgres.yml
 
+# ====================================
+# Server Configuration
+# ====================================
 server:
   port: 8080
   servlet:
     context-path: /api
 
+# ====================================
+# Swagger Configuration (Simple)
+# ====================================
 springdoc:
   swagger-ui:
     path: /docs
+
+# ====================================
+# JWT Configuration
+# ====================================
+jwt:
+  secret: BVyaKi8MZA/+Tt3Nl1GwWy9nbuknr/1cCgQyZ5sHHbQ=
+  expiration: 900000
+  refresh-expiration: 604800000
+
+# ====================================
+# Logging
+# ====================================
+logging:
+  level:
+    chatapp.chat_platform: DEBUG
+    org.springframework.security: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
