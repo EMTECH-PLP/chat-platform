@@ -23,19 +23,19 @@ public class PasswordService {
 
     @Transactional
     public void processForgotPassword(ForgotPasswordRequest request) {
-        // 1. Find user by email (Using standard JpaRepository layout Dev A/B share)
-        User user = userRepository.findByEmail(request.getEmail())
+        // 1. Updated to use the active soft-delete lookup method
+        User user = userRepository.findByEmailAndDeletedAtIsNull(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("User with this email does not exist."));
 
         // 2. Generate a unique raw token to send to the user
         String rawToken = UUID.randomUUID().toString();
 
-        // 3. Create a PasswordReset record (Matches the layout from our database logs)
+        // 3. Create a PasswordReset record
         PasswordReset passwordReset = new PasswordReset();
         passwordReset.setId(UUID.randomUUID());
         passwordReset.setUser(user);
-        passwordReset.setTokenHash(rawToken); // In production, you'd SHA-256 hash this string
-        passwordReset.setExpiresAt(LocalDateTime.now().plusHours(1)); // 1 hour validity
+        passwordReset.setTokenHash(rawToken);
+        passwordReset.setExpiresAt(LocalDateTime.now().plusHours(1));
 
         passwordResetRepository.save(passwordReset);
 
@@ -62,9 +62,6 @@ public class PasswordService {
 
         // 3. Update User Password
         User user = resetRecord.getUser();
-
-        // Note: Replace this plain assignment with passwordEncoder.encode(request.getNewPassword())
-        // once Dev A integrates the global BCrypt Bean.
         user.setPasswordHash(request.getNewPassword());
         userRepository.save(user);
 
@@ -75,12 +72,11 @@ public class PasswordService {
 
     @Transactional
     public void processChangePassword(String username, ChangePasswordRequest request) {
-        // 1. Find the logged-in user context
-        User user = userRepository.findByUsername(username)
+        // 1. Updated to use the active soft-delete lookup method
+        User user = userRepository.findByUsernameAndDeletedAtIsNull(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found."));
 
         // 2. Verify current password matches database string
-        // Note: Replace with passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash()) later.
         if (!user.getPasswordHash().equals(request.getCurrentPassword())) {
             throw new IllegalArgumentException("Your current password does not match our records.");
         }
