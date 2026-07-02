@@ -14,8 +14,10 @@ public class NotificationRequest {
     private String type;
 
     @NotBlank
-    private String message;
+    private String title;
 
+    @NotBlank
+    private String message;
     private Long relatedRoomId;
     private Long relatedMessageId;
 }
