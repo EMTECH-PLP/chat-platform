@@ -1,8 +1,8 @@
 package chatapp.chat_platform.auth.controller;
 
+import chatapp.chat_platform.auth.dto.ChangePasswordRequest;
 import chatapp.chat_platform.auth.dto.ForgotPasswordRequest;
 import chatapp.chat_platform.auth.dto.ResetPasswordRequest;
-import chatapp.chat_platform.auth.dto.ChangePasswordRequest;
 import chatapp.chat_platform.auth.service.PasswordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class PasswordController {
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         passwordService.processForgotPassword(request);
-        return ResponseEntity.ok(Map.of("message", "Reset token generated and printed to console."));
+        return ResponseEntity.ok(Map.of("message", "Reset token generated and dispatched successfully. Check server console logs."));
     }
 
     @PostMapping("/reset")
@@ -32,11 +32,10 @@ public class PasswordController {
     }
 
     @PostMapping("/change")
-    public ResponseEntity<?> changePassword(
-            @Valid @RequestBody ChangePasswordRequest request,
-            Principal principal) {
-
-        // Principal dynamically holds the username of whoever sent the valid auth token
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest request, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(401).body(Map.of("success", false, "message", "Authentication context missing. Bearer token required."));
+        }
         passwordService.processChangePassword(principal.getName(), request);
         return ResponseEntity.ok(Map.of("message", "Password updated successfully."));
     }
