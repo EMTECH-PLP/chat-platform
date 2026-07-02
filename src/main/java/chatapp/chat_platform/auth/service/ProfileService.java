@@ -17,7 +17,7 @@ public class ProfileService {
     private final UserRepository userRepository;
 
     public User getProfile(UUID userId) {
-        return userRepository.findById(userId)
+        return userRepository.findByIdAndDeletedAtIsNull(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
@@ -26,11 +26,11 @@ public class ProfileService {
     }
 
     public User updateProfile(UUID userId, UpdateProfileRequest request) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByIdAndDeletedAtIsNull(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (request.getUsername() != null) {
-            if (userRepository.existsByUsername(request.getUsername())) {
+            if (userRepository.existsActiveByUsername(request.getUsername())) {
                 throw new IllegalArgumentException("Username already taken");
             }
             user.setUsername(request.getUsername());
