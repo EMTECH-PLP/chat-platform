@@ -1,4 +1,4 @@
-package chatapp.chat_platform.search.dto;
+package chatapp.chat_platform.auth.search.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

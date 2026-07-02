@@ -1,8 +1,8 @@
-package chatapp.chat_platform.search.controller;
+package chatapp.chat_platform.auth.search.controller;
 
 import chatapp.chat_platform.common.response.ApiResponse;
-import chatapp.chat_platform.search.dto.SearchRequest;
-import chatapp.chat_platform.search.service.SearchService;
+import chatapp.chat_platform.auth.search.dto.SearchRequest;
+import chatapp.chat_platform.auth.search.service.SearchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

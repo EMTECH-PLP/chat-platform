@@ -1,6 +1,6 @@
-package chatapp.chat_platform.search.repository;
+package chatapp.chat_platform.auth.search.repository;
 
-import chatapp.chat_platform.search.model.MessageIndex;
+import chatapp.chat_platform.auth.search.model.MessageIndex;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

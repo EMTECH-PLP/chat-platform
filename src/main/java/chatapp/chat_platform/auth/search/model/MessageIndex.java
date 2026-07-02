@@ -1,4 +1,4 @@
-package chatapp.chat_platform.search.model;
+package chatapp.chat_platform.auth.search.model;
 
 import chatapp.chat_platform.common.model.BaseEntity;
 import jakarta.persistence.*;
