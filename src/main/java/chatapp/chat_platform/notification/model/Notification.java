@@ -20,9 +20,13 @@ public class Notification extends BaseEntity {
     private String type;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String message;
 
     @Column(nullable = false)
+
     @Builder.Default
     private boolean read = false;
 
