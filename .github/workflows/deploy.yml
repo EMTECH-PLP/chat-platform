@@ -1,0 +1,36 @@
+name: api CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+# Building
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code from Github
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Run Tests
+          run: mvn test
+
+      - name: Build Artifact
+        run: mvn package
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote-user: ${{ secrets.REMOTE_USER }}
+          server-ip: ${{ secrets.SERVER_IP }}
+          remote-path: ${{ secrets.REMOTE_PATH }}
+          local-path: target/*.jar

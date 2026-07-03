@@ -3,7 +3,7 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-.env
+target/.env
 
 ### STS ###
 .apt_generated
@@ -28,7 +28,11 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
+.env
 !**/src/test/**/build/
+
 
 ### VS Code ###
 .vscode/
+application-mariadb.yml
+*.local.yml
