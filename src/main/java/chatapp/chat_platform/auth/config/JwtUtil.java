@@ -1,5 +1,6 @@
 package chatapp.chat_platform.auth.config;
 
+import chatapp.chat_platform.auth.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -35,12 +36,12 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateAccessToken(UUID userId, String username, String email, String role) {
+    public String generateAccessToken(UUID userId, String username, String email, Role role) {
         return Jwts.builder()
                 .subject(userId.toString())
                 .claim("username", username)
                 .claim("email", email)
-                .claim("role", role)
+                .claim("role", role.name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getKey())
