@@ -14,7 +14,7 @@ This is a complete backend system for a real-time chat platform, built as a coll
 |--------|------|-------------|--------|
 | **Auth Module** | Dev A | User registration, login, JWT tokens, email verification | ✅ Complete |
 | **Profile Module** | Dev B | User profile management (GET/PATCH/DELETE /me) | ✅ Complete |
-| **Password Module** | Dev C | Forgot password, reset password, change password | ⏳ In Progress |
+| **Password Module** | Dev C | Forgot password, reset password, change password | ✅ Complete |
 | **Chat Module** | Dev D | Room creation, messaging, room membership | ⏳ In Progress |
 | **Notification Module** | Dev E | User notifications for chat activity | ⏳ In Progress |
 | **Search Module** | Dev F | Message history search and indexing | ⏳ In Progress |
