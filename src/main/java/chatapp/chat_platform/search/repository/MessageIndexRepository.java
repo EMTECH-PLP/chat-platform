@@ -15,3 +15,7 @@ public interface MessageIndexRepository extends JpaRepository<MessageIndex, Long
     @Query("SELECT m FROM MessageIndex m WHERE m.roomId = :roomId AND LOWER(m.content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<MessageIndex> searchByContentInRoom(@Param("roomId") Long roomId, @Param("keyword") String keyword);
 }
+
+
+
+
