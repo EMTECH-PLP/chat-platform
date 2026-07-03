@@ -3,8 +3,10 @@ package chatapp.chat_platform.notification.service;
 import chatapp.chat_platform.notification.dto.NotificationRequest;
 import chatapp.chat_platform.notification.model.Notification;
 import chatapp.chat_platform.notification.repository.NotificationRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class NotificationService {
         Notification notification = Notification.builder()
                 .userId(request.getUserId())
                 .type(request.getType())
+                .title(request.getTitle())
                 .message(request.getMessage())
                 .relatedRoomId(request.getRelatedRoomId())
                 .relatedMessageId(request.getRelatedMessageId())
@@ -32,6 +35,10 @@ public class NotificationService {
     public List<Notification> getUnreadForUser(Long userId) {
         return notificationRepository.findByUserIdAndRead(userId, false);
     }
+    public long getUnreadCount(Long userId) {
+        return notificationRepository.countByUserIdAndReadFalse(userId);
+    }
+
 
     public Notification markRead(Long notificationId) {
         Notification notification = notificationRepository.findById(notificationId)
@@ -39,4 +46,10 @@ public class NotificationService {
         notification.setRead(true);
         return notificationRepository.save(notification);
     }
+    @Transactional
+    public int markAllAsRead(Long userId) {
+        return notificationRepository.markAllAsReadForUser(userId);
+    }
+
+
 }
