@@ -1,34 +1,30 @@
-version: '3.8'
-
 services:
   # shared db
   postgres-db:
     image: postgres:15-alpine
     container_name: chat-platform-db
     environment:
-      POSTGRES_USER: chat_platform
-      POSTGRES_PASSWORD: chat_platform
-      POSTGRES_DB: chat_platform
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${PRODUCTION_DB_USER}
+      POSTGRES_PASSWORD: ${PRODUCTION_DB_PASSWORD}
+      POSTGRES_DB: ${PRODUCTION_DB_NAME}
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  
+
   chat-app:
     build: .
     container_name: chat-platform-app
     ports:
       - "8080:8080"
-    
+
     environment:
-      - name=value
-      - DB_URL=jdbc:postgresql://postgres-db:5432/{{PRODUCTION_DB_NAME}
-      - DB_USERNAME={PRODUCTION_DB_USER}
-      - DB_PASSWORD={PRODUCTION_DB_PASSWORD}
-      - SHOW_SQL={PRODUCTION_SHOW_SQL}
+      - DB_URL=jdbc:postgresql://postgres-db:5432/${PRODUCTION_DB_NAME}
+      - DB_USERNAME=${PRODUCTION_DB_USER}
+      - DB_PASSWORD=${PRODUCTION_DB_PASSWORD}
+      - DDL_AUTO=${PRODUCTION_DDL_AUTO}
+      - SHOW_SQL=${PRODUCTION_SHOW_SQL}
     depends_on:
       - postgres-db
-    
-    volumes:
-      - pgdata:
+
+volumes:
+  postgres-data:
