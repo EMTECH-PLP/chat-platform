@@ -30,8 +30,24 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok(notificationService.getUnreadForUser(userId)));
     }
 
-    @PatchMapping("/{id}/read")
-    public ResponseEntity<ApiResponse<?>> markRead(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.ok("Marked as read", notificationService.markRead(id)));
+    @GetMapping("/user/{userId}/unread/count")
+    public ResponseEntity<ApiResponse<?>> countUnread(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponse.ok(notificationService.countUnreadForUser(userId)));
+    }
+
+    @PatchMapping("/user/{userId}/{id}/read")
+    public ResponseEntity<ApiResponse<?>> markRead(@PathVariable Long userId, @PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.ok("Marked as read", notificationService.markRead(userId, id)));
+    }
+
+    @PatchMapping("/user/{userId}/read-all")
+    public ResponseEntity<ApiResponse<?>> markAllRead(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponse.ok("Marked all as read", notificationService.markAllRead(userId)));
+    }
+
+    @DeleteMapping("/user/{userId}/{id}")
+    public ResponseEntity<ApiResponse<?>> delete(@PathVariable Long userId, @PathVariable Long id) {
+        notificationService.delete(userId, id);
+        return ResponseEntity.ok(ApiResponse.ok("Notification deleted", null));
     }
 }

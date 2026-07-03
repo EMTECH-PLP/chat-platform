@@ -6,8 +6,10 @@ import chatapp.chat_platform.chat.model.Message;
 import chatapp.chat_platform.chat.model.Room;
 import chatapp.chat_platform.chat.repository.MessageRepository;
 import chatapp.chat_platform.chat.repository.RoomRepository;
+import chatapp.chat_platform.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class ChatService {
 
     private final RoomRepository roomRepository;
     private final MessageRepository messageRepository;
+    private final NotificationService notificationService;
 
     public Room createRoom(RoomRequest request) {
         if (roomRepository.existsByName(request.getName())) {
@@ -38,16 +41,21 @@ public class ChatService {
         return roomRepository.save(room);
     }
 
+    @Transactional
     public Message sendMessage(Long roomId, MessageRequest request) {
-        roomRepository.findById(roomId)
+        Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        if (!room.getMemberIds().contains(request.getSenderId())) {
+            throw new IllegalArgumentException("Sender is not a member of this room");
+        }
         Message message = Message.builder()
                 .roomId(roomId)
                 .senderId(request.getSenderId())
                 .content(request.getContent())
                 .build();
-        return messageRepository.save(message);
-        // TODO: notify Notification API and Search API
+        Message savedMessage = messageRepository.save(message);
+        notificationService.createMessageNotifications(room, savedMessage);
+        return savedMessage;
     }
 
     public List<Message> getRoomMessages(Long roomId) {
