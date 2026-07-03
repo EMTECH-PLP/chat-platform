@@ -3,6 +3,7 @@ package chatapp.chat_platform.chat.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import java.util.UUID;
 
 @Data
 public class RoomRequest {
@@ -13,5 +14,5 @@ public class RoomRequest {
     private String description;
 
     @NotNull
-    private Long createdByUserId;
+    private UUID createdByUserId;
 }

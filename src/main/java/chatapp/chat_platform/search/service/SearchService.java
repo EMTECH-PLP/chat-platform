@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class SearchService {
         return messageIndexRepository.searchByContent(request.getKeyword());
     }
 
-    public void index(Long messageId, Long roomId, Long senderId, String content) {
+    public void index(Long messageId, Long roomId, UUID senderId, String content) {
         MessageIndex entry = MessageIndex.builder()
                 .messageId(messageId)
                 .roomId(roomId)

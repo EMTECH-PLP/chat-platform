@@ -15,9 +15,9 @@ server:
 # ====================================
 # Swagger Configuration (Simple)
 # ====================================
-springdoc:
-  swagger-ui:
-    path: /docs
+#springdoc:
+#  swagger-ui:
+#    path: /docs
 
 # ====================================
 # JWT Configuration

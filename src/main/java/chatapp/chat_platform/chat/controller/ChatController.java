@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/rooms")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class ChatController {
     }
 
     @PostMapping("/{roomId}/join/{userId}")
-    public ResponseEntity<ApiResponse<?>> joinRoom(@PathVariable Long roomId, @PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<?>> joinRoom(@PathVariable Long roomId, @PathVariable UUID userId) {
         return ResponseEntity.ok(ApiResponse.ok("Joined room", chatService.joinRoom(roomId, userId)));
     }
 
@@ -38,7 +40,7 @@ public class ChatController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<ApiResponse<?>> getUserRooms(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<?>> getUserRooms(@PathVariable UUID userId) {
         return ResponseEntity.ok(ApiResponse.ok(chatService.getUserRooms(userId)));
     }
 }

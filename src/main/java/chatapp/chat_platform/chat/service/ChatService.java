@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class ChatService {
         return roomRepository.save(room);
     }
 
-    public Room joinRoom(Long roomId, Long userId) {
+    public Room joinRoom(Long roomId, UUID userId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new IllegalArgumentException("Room not found"));
         room.getMemberIds().add(userId);
@@ -54,7 +55,7 @@ public class ChatService {
         return messageRepository.findByRoomIdOrderByCreatedAtAsc(roomId);
     }
 
-    public List<Room> getUserRooms(Long userId) {
+    public List<Room> getUserRooms(UUID userId) {
         return roomRepository.findByMemberIdsContaining(userId);
     }
 }

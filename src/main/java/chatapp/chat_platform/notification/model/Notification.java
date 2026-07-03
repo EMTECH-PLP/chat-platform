@@ -4,6 +4,8 @@ import chatapp.chat_platform.common.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "notifications")
 @Getter
@@ -14,10 +16,11 @@ import lombok.*;
 public class Notification extends BaseEntity {
 
     @Column(nullable = false)
-    private Long userId;
+    private UUID userId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String type;
+    private NotificationType type;
 
     @Column(nullable = false)
     private String title;
@@ -25,10 +28,10 @@ public class Notification extends BaseEntity {
     @Column(nullable = false)
     private String message;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-
     @Builder.Default
-    private boolean read = false;
+    private Status status = Status.UNREAD;
 
     private Long relatedRoomId;
     private Long relatedMessageId;

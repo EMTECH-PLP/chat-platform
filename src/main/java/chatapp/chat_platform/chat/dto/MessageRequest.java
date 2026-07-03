@@ -3,12 +3,13 @@ package chatapp.chat_platform.chat.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import java.util.UUID;
 
 @Data
 public class MessageRequest {
 
     @NotNull
-    private Long senderId;
+    private UUID senderId;
 
     @NotBlank
     private String content;

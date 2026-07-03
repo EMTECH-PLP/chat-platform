@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "rooms")
@@ -22,11 +23,11 @@ public class Room extends BaseEntity {
     private String description;
 
     @Column(nullable = false)
-    private Long createdByUserId;
+    private UUID createdByUserId;
 
     @ElementCollection
     @CollectionTable(name = "room_members", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "user_id")
     @Builder.Default
-    private Set<Long> memberIds = new HashSet<>();
+    private Set<UUID> memberIds = new HashSet<>();
 }
