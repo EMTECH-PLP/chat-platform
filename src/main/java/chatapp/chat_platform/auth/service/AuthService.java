@@ -4,6 +4,7 @@ import chatapp.chat_platform.auth.config.JwtUtil;
 import chatapp.chat_platform.auth.dto.request.LoginRequest;
 import chatapp.chat_platform.auth.dto.request.RegisterRequest;
 import chatapp.chat_platform.auth.dto.response.AuthResponse;
+import chatapp.chat_platform.auth.model.Role;
 import chatapp.chat_platform.auth.model.User;
 import chatapp.chat_platform.auth.repository.UserRepository;
 import chatapp.chat_platform.auth.util.AuthConstants;
@@ -45,7 +46,7 @@ public class AuthService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-        user.setRole(AuthConstants.ROLE_USER);
+        user.setRole(Role.USER);
         user.setEmailVerified(false);
         user.setEnabled(false);
 
@@ -57,7 +58,7 @@ public class AuthService {
             user.getId(),
             user.getUsername(),
             user.getEmail(),
-            user.getRole(),
+            user.getRole().name(),
             null,
             null,
             0L
@@ -92,7 +93,7 @@ public class AuthService {
             user.getId(),
             user.getUsername(),
             user.getEmail(),
-            user.getRole(),
+            user.getRole().name(),
             accessToken,
             refreshToken,
             expiration

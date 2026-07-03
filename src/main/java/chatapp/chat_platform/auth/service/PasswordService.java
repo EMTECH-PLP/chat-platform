@@ -22,6 +22,7 @@ public class PasswordService {
     private final PasswordResetRepository passwordResetRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Transactional
     public void processForgotPassword(ForgotPasswordRequest request) {
@@ -37,10 +38,7 @@ public class PasswordService {
 
         passwordResetRepository.save(passwordReset);
 
-        System.out.println("====================================================");
-        System.out.println("EMAIL DISPATCH MOCK: Send to " + user.getEmail());
-        System.out.println("Your password reset token is: " + rawToken);
-        System.out.println("====================================================");
+        emailService.sendPasswordResetEmail(user.getEmail(), user.getUsername(), rawToken);
     }
 
     @Transactional
