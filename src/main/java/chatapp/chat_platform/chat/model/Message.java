@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Message extends BaseEntity {
+public class  Message extends BaseEntity {
 
     @Column(nullable = false)
     private Long roomId;
