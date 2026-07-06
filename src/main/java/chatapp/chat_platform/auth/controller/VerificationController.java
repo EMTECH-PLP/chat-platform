@@ -36,7 +36,7 @@ public class VerificationController {
             user.getId(),
             user.getUsername(),
             user.getEmail(),
-            user.getRole()
+            user.getRole().name()
         );
 
         return ResponseEntity.ok(ApiResponse.ok(AuthConstants.MSG_EMAIL_VERIFIED, response));
