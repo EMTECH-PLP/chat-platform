@@ -6,7 +6,7 @@ A real-time chat platform backend built with Spring Boot, featuring JWT authenti
 
 ## 📋 Project Overview
 
-This is a complete backend system for a real-time chat platform, built as a collaborative project with teams working on separate API modules. The system includes user authentication, profile management, chat rooms, notifications, and search functionality.
+This is a Work In Progress backend system for a real-time chat platform, built as a collaborative project with teams working on separate API modules. The system includes user authentication, profile management, chat rooms, notifications, and search functionality.
 
 ### Modules
 
@@ -29,12 +29,11 @@ This is a complete backend system for a real-time chat platform, built as a coll
 | **Spring Boot** | 4.0.2 | Application framework |
 | **Spring Security** | 4.0.2 | Authentication & authorization |
 | **Spring Data JPA** | 4.0.2 | Database ORM |
-| **MariaDB** | 11.8.6 | Primary database |
-| **PostgreSQL** | - | Alternative database (team choice) |
+| **PostgreSQL** | - | Primary database (team choice) |
 | **JWT (JJWT)** | 0.12.5 | Token generation & validation |
 | **Lombok** | 1.18.36 | Boilerplate reduction |
 | **Swagger/OpenAPI** | 2.7.0 | API documentation |
-| **Resend** | 2.0.0 | Email service (production) |
+| **Resend** | 2.0.0 | Email service  |
 | **SMTP (Gmail)** | - | Email service (testing without domain verification) |
 | **Maven** | 3.9.x | Build tool |
 
@@ -45,7 +44,7 @@ This is a complete backend system for a real-time chat platform, built as a coll
 ```
 chat-platform/
 ├── src/main/java/chatapp/chat_platform/
-│   ├── auth/                           # Auth Module (COMPLETE)
+│   ├── auth/                           # Auth Module
 │   │   ├── config/                     # Security, JWT, Swagger configs
 │   │   │   ├── SecurityConfig.java     # Spring Security configuration
 │   │   │   ├── JwtUtil.java            # JWT token utilities
@@ -84,8 +83,8 @@ chat-platform/
 │           └── ApiResponse.java        # Standardized API responses
 ├── src/main/resources/
 │   ├── application.yml                 # Main configuration
-│   ├── application-mariadb.yml         # MariaDB configuration (gitignored)
-│   └── application-mariadb-sample.yml  # Template for team
+│   ├── application-mysql.yml         # MariaDB configuration (gitignored)
+│   └── application-mysql-sample.yml  # Template for team
 ├── scripts/
 │   └── test-auth.sh                    # Auth module test script
 ├── .env                                # Environment variables (gitignored)
@@ -105,7 +104,7 @@ chat-platform/
 | `POST` | `/api/auth/register` | Register a new user | ❌ No |
 | `POST` | `/api/auth/login` | Login and receive JWT tokens | ❌ No |
 | `POST` | `/api/auth/verify-email` | Verify email with token | ❌ No |
-| `POST` | `/api/auth/resend-verification` | Resend verification email | ❌ No |
+| `POST` | `/api/auth/email-verification` | Verification email | ❌ No |
 | `GET` | `/api/auth/health` | Health check | ❌ No |
 | `GET` | `/api/auth/email-verified/{userId}` | Check email verification status | ✅ Yes (JWT) |
 
@@ -118,7 +117,6 @@ chat-platform/
 | **Token Expiry** | Access: 15 min, Refresh: 7 days |
 | **Email Verification** | 24-hour token expiry |
 | **Account Lock** | Disabled until email verified |
-| **Soft Delete** | Users can be soft-deleted |
 | **CORS** | Configured for frontend integration |
 
 ### Authentication Flow
@@ -299,40 +297,6 @@ curl -X GET http://localhost:8080/api/auth/health \
 
 ---
 
-## 🤝 Team Collaboration
-
-### Branch Strategy
-
-| Developer | Branch | Module |
-|-----------|--------|--------|
-| Dev A (You) | `bkioko-authcontrol` | Auth Module  |
-| Dev B | `obunde-profile-man` | Profile Module  |
-| Dev C | `feature/password` | Password Module |
-| Dev D | `feature/chat-module` | Chat Module |
-| Dev E | `feature/notification` | Notification Module |
-| Dev F | `feature/search` | Search Module |
-
-### Merging to Main
-
-```bash
-# 1. Ensure your branch is up to date
-git checkout your-branch
-git pull origin main
-
-# 2. Switch to main
-git checkout main
-git pull origin main
-
-# 3. Merge your branch
-git merge your-branch
-
-# 4. Resolve conflicts (if any)
-# 5. Push main
-git push origin main
-```
-
----
-
 ## ⚠️ Common Issues & Fixes
 
 ### Lombok Not Working
@@ -364,19 +328,6 @@ mvn clean package -Dmaven.test.skip=true
 ```bash
 java -jar target/chat-platform-0.0.1-SNAPSHOT.jar
 ```
-
-### With Environment Variables
-
-```bash
-EMAIL_PROVIDER=resend \
-RESEND_API_KEY=re_xxxxx \
-RESEND_FROM_EMAIL=noreply@yourdomain.com \
-java -jar target/chat-platform-0.0.1-SNAPSHOT.jar
-```
-
----
-
-## 📊 Response Format
 
 All API responses follow a consistent format:
 
