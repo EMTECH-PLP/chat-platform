@@ -20,10 +20,6 @@ public final class AuthConstants {
     public static final String EMAIL_ATTRIBUTE = "email";
     public static final String ROLE_ATTRIBUTE = "role";
     
-    // Roles
-    public static final String ROLE_USER = "user";
-    public static final String ROLE_ADMIN = "admin";
-    
     // Security
     public static final int BCRYPT_STRENGTH = 12;
     
