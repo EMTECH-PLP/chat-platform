@@ -2,7 +2,7 @@ spring:
   application:
     name: chat-platform
   config:
-    import: classpath:application-postgres.yml
+    import: classpath:application-mysql.yml # ↵ Changed from application-postgres.yml
 
 # ====================================
 # Server Configuration
