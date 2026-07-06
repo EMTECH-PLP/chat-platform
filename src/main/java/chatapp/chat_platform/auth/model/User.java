@@ -38,8 +38,9 @@ public class User {
     @Column(name = "avatar_url", length = 255)
     private String avatarUrl;
 
-    @Column(nullable = false)
-    private String role = "user";
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Role role = Role.USER;
 
     @Column(name = "email_verified")
     private Boolean emailVerified = false;

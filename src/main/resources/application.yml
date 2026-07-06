@@ -2,7 +2,21 @@ spring:
   application:
     name: chat-platform
   config:
-    import: classpath:application-mysql.yml # ↵ Changed from application-postgres.yml
+    import: classpath:application-mysql.yml # ↵ Changed from application-postgres.yml for QA testing
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: "*"
 
 # ====================================
 # Server Configuration
@@ -36,3 +50,4 @@ logging:
     org.springframework.security: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
