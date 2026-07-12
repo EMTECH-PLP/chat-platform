@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
       
       - name: Run Tests
-          run: mvn test
+        run: mvn test
 
       - name: Build Artifact
         run: mvn package
@@ -29,8 +29,8 @@ jobs:
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote-user: ${{ secrets.REMOTE_USER }}
-          server-ip: ${{ secrets.SERVER_IP }}
-          remote-path: ${{ secrets.REMOTE_PATH }}
-          local-path: target/*.jar
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          SOURCE: target/*.jar
+          TARGET: ${{ secrets.REMOTE_PATH }}
