@@ -16,8 +16,13 @@ public class Notification extends BaseEntity {
     @Column(nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
-    private String type;
+    /**
+     * Notification type — stored as the enum name string in the DB.
+     * Backward compatible with existing String-based entries.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private NotificationType type;
 
     @Column(nullable = false)
     private String message;

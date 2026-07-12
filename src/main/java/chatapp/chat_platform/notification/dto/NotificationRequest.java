@@ -1,5 +1,6 @@
 package chatapp.chat_platform.notification.dto;
 
+import chatapp.chat_platform.notification.model.NotificationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -10,8 +11,8 @@ public class NotificationRequest {
     @NotNull
     private Long userId;
 
-    @NotBlank
-    private String type;
+    @NotNull
+    private NotificationType type;
 
     @NotBlank
     private String message;
